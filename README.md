@@ -16,6 +16,8 @@ Iniciar servicios con `docker-compose`:
 $ docker-compose up -d
 ```
 
+La migración de la base de datos es automatica y se generarán 3 usuarios de prueba.
+
 Una vez iniciados los servicios se puede acceder a la API a través de `http://localhost:3700`
 
 ## Probar con Postman
@@ -46,6 +48,6 @@ Dentro del repositorio podemos encontrar un archivo de colección de Postman lla
 
 * **Obtener ticket**: `GET /api/ticket/{id}`
 
-* **Obtener tickets**: `GET /api/ticket/q?page=0&sort=-id` `sort` negativo ordena de mayor a menor
+* **Obtener tickets**: `GET /api/ticket/q?page=0&sort=-id` `sort` negativo ordena de mayor a menor.
 
 * **Obtener tickets con filtro**: `GET /api/ticket/q?page=0&sort=-id&filters=["status","cerrado"]`
