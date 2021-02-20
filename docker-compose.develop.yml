@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  dvp-api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop
+    image: dvp-api
+    container_name: dvp-api
+    restart: always
+    volumes:
+      - .:/go/src/dvp-api/
+    ports:
+      - "${PORT}:${PORT}"
+    expose:
+      - "${PORT}"
+    depends_on:
+      - mysql-dvp
+    env_file:
+      - ./.env
+    command: sh -c 'go run main.go'
+    networks:
+      - dvp-network
+
+  mysql-dvp:
+    image: mysql:5.7.22
+    container_name: mysql-dvp
+    restart: always
+    ports:
+      - "${DB_PORT}:3306"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    env_file:
+      - ./.env
+    volumes:
+      - my-db:/var/lib/mysql
+    networks:
+      - dvp-network
+
+volumes:
+  my-db:
+
+networks:
+  dvp-network:
+    driver: bridge

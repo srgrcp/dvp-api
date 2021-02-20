@@ -1,0 +1,6 @@
+FROM golang:1.15-alpine
+WORKDIR /go/src/dvp-api
+COPY . .
+RUN go mod download
+RUN go mod verify
+EXPOSE 3700
